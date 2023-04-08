@@ -10,6 +10,14 @@ import type {
     SolanaSignTransactionMethod,
     SolanaSignTransactionOutput,
 } from '@solana/wallet-standard-features';
+import type {
+    DecryptFeature,
+    DecryptMethod,
+    DecryptOutput,
+    EncryptFeature,
+    EncryptMethod,
+    EncryptOutput,
+} from '@wallet-standard/experimental';
 import { Connection, PublicKey, VersionedTransaction } from '@solana/web3.js';
 import type { Wallet, WalletAccount } from '@wallet-standard/base';
 import type {

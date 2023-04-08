@@ -18,7 +18,9 @@
   },
   "dependencies": {
     "@coral-xyz/blockchain-keyring": "*",
-    "@coral-xyz/common": "*"
+    "@coral-xyz/common": "*",
+    "@types/ed2curve": "*",
+    "ed2curve": "*"
   },
   "devDependencies": {
     "eslint-config-custom": "*",

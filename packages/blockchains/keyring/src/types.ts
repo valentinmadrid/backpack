@@ -23,6 +23,16 @@ export interface Keyring {
   deletePublicKey(publicKey: string): void;
   signTransaction(tx: Buffer, address: string): Promise<string>;
   signMessage(tx: Buffer, address: string): Promise<string>;
+  encrypt(
+    msg: Uint8Array,
+    fromPublicKey: string,
+    toPublicKey: Uint8Array
+  ): Uint8Array;
+  decrypt(
+    msg: Uint8Array,
+    fromPublicKey: Uint8Array,
+    toPublicKey: string
+  ): Uint8Array;
   exportSecretKey(address: string): string | null;
   importSecretKey(secretKey: string): string;
   toJson(): any;

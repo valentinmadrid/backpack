@@ -33,6 +33,8 @@ import {
   PLUGIN_RPC_METHOD_PLUGIN_OPEN,
   PLUGIN_RPC_METHOD_POP_OUT,
   PLUGIN_RPC_METHOD_WINDOW_OPEN,
+  SOLANA_RPC_METHOD_DECRYPT as PLUGIN_SOLANA_RPC_METHOD_DECRYPT,
+  SOLANA_RPC_METHOD_ENCRYPT as PLUGIN_SOLANA_RPC_METHOD_ENCRYPT,
   SOLANA_RPC_METHOD_SIGN_ALL_TXS as PLUGIN_SOLANA_RPC_METHOD_SIGN_ALL_TXS,
   SOLANA_RPC_METHOD_SIGN_AND_SEND_TX as PLUGIN_SOLANA_RPC_METHOD_SIGN_AND_SEND_TX,
   SOLANA_RPC_METHOD_SIGN_MESSAGE as PLUGIN_SOLANA_RPC_METHOD_SIGN_MESSAGE,
@@ -454,6 +456,10 @@ export class Plugin {
         return await this._handleSolanaSignMessage(params[0], params[1]);
       case PLUGIN_SOLANA_RPC_METHOD_SIMULATE_TX:
         return await this._handleSolanaSimulate(params[0], params[1]);
+      case PLUGIN_SOLANA_RPC_METHOD_ENCRYPT:
+        return await this._handleSolanaEncrypt(params[0], params[1], params[2]);
+      case PLUGIN_SOLANA_RPC_METHOD_DECRYPT:
+        return await this._handleSolanaDecrypt(params[0], params[1], params[2]);
       default:
         logger.error(method);
         throw new Error("unexpected method");
@@ -574,6 +580,24 @@ export class Plugin {
     } catch (err: any) {
       return [null, err.toString()];
     }
+  }
+
+  private async _handleSolanaEncrypt(
+    msg: Uint8Array,
+    fromPubkey: string,
+    toPubkey: PublicKey
+  ): Promise<RpcResponse> {
+    // TO-DO
+    return ["success"];
+  }
+
+  private async _handleSolanaDecrypt(
+    msg: Uint8Array,
+    fromPubkey: string,
+    toPubkey: PublicKey
+  ): Promise<RpcResponse> {
+    // TO-DO
+    return ["success"];
   }
 
   private async _handleSolanaSimulate(

@@ -200,6 +200,30 @@ export class Backend {
     return await blockchainKeyring.signMessage(msg, walletAddress);
   }
 
+  async solanaEncrypt(
+    msg: Uint8Array,
+    fromPubkey: string,
+    toPubkey: PublicKey
+  ): Promise<Uint8Array> {
+    const blockchainKeyring =
+      this.keyringStore.activeUserKeyring.keyringForBlockchain(
+        Blockchain.SOLANA
+      );
+    return await blockchainKeyring.encrypt(msg, fromPubkey, toPubkey);
+  }
+
+  async solanaDecrypt(
+    msg: Uint8Array,
+    fromPubkey: string,
+    toPubkey: PublicKey
+  ): Promise<Uint8Array> {
+    const blockchainKeyring =
+      this.keyringStore.activeUserKeyring.keyringForBlockchain(
+        Blockchain.SOLANA
+      );
+    return await blockchainKeyring.decrypt(msg, fromPubkey, toPubkey);
+  }
+
   async solanaSimulate(txStr: string, addresses: Array<string>): Promise<any> {
     const tx = deserializeTransaction(txStr);
     const signersOrConf =

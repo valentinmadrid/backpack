@@ -19,6 +19,7 @@ import {
 } from "@coral-xyz/common";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { mnemonicToSeedSync, validateMnemonic } from "bip39";
+import * as ed2curve from "ed2curve";
 import { ethers } from "ethers";
 import nacl from "tweetnacl";
 
@@ -70,6 +71,51 @@ class SolanaKeyring implements Keyring {
     //       type of unique prefix that asserts this isn't a
     //       real transaction.
     return this.signTransaction(tx, address);
+  }
+
+  public async encrypt(
+    message: Uint8Array,
+    fromPublicKey: string,
+    toPublicKey: PublicKey
+  ): Promise<Uint8Array[]> {
+    const pubkey = new PublicKey(fromPublicKey);
+    const kp = this.keypairs.find((kp) => kp.publicKey.equals(pubkey));
+    if (!kp) {
+      throw new Error(`unable to find ${fromPublicKey.toString()}`);
+    }
+    const nonce = nacl.randomBytes(nacl.secretbox.nonceLength);
+    const curvePublicKey = ed2curve.convertPublicKey(toPublicKey.toBytes());
+    if (!curvePublicKey) {
+      throw new Error("unable to convert public key");
+    }
+    const curvePrivateKey = ed2curve.convertSecretKey(kp.secretKey);
+
+    const box = nacl.box(message, nonce, curvePublicKey, curvePrivateKey);
+    return [box, nonce];
+  }
+
+  public async decrypt(
+    box: Uint8Array,
+    nonce: Uint8Array,
+    fromPublicKey: string,
+    toPublicKey: PublicKey
+  ): Promise<Uint8Array> {
+    const pubkey = new PublicKey(fromPublicKey);
+    const kp = this.keypairs.find((kp) => kp.publicKey.equals(pubkey));
+    if (!kp) {
+      throw new Error(`unable to find ${toPublicKey.toString()}`);
+    }
+    const curvePublicKey = ed2curve.convertPublicKey(toPublicKey.toBytes());
+    if (!curvePublicKey) {
+      throw new Error("unable to convert public key");
+    }
+    const curvePrivateKey = ed2curve.convertSecretKey(kp.secretKey);
+
+    const message = nacl.box.open(box, nonce, curvePublicKey, curvePrivateKey);
+    if (!message) {
+      throw new Error("unable to decrypt");
+    }
+    return message;
   }
 
   public exportSecretKey(address: string): string | null {

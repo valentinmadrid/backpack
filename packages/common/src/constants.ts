@@ -74,6 +74,8 @@ export const PLUGIN_REQUEST_SOLANA_SIGN_AND_SEND_TRANSACTION =
   "plugin-request-solana-sign-and-send-tx";
 export const PLUGIN_REQUEST_SOLANA_SIGN_MESSAGE =
   "plugin-request-solana-sign-message";
+export const PLUGIN_REQUEST_SOLANA_ENCRYPT = "plugin-request-solana-encrypt";
+export const PLUGIN_REQUEST_SOLANA_DECRYPT = "plugin-request-solana-decrypt";
 export const PLUGIN_REQUEST_ETHEREUM_SIGN_TRANSACTION =
   "plugin-request-ethereum-sign-tx";
 export const PLUGIN_REQUEST_ETHEREUM_SIGN_AND_SEND_TRANSACTION =
@@ -377,6 +379,8 @@ export const SOLANA_RPC_METHOD_SIGN_AND_SEND_TX = "solana-sign-and-send-tx";
 export const SOLANA_RPC_METHOD_SIGN_TX = "solana-sign-tx";
 export const SOLANA_RPC_METHOD_SIGN_ALL_TXS = "solana-sign-all-txs";
 export const SOLANA_RPC_METHOD_SIGN_MESSAGE = "solana-sign-message";
+export const SOLANA_RPC_METHOD_ENCRYPT = "solana-encrypt";
+export const SOLANA_RPC_METHOD_DECRYPT = "solana-decrypt";
 export const SOLANA_RPC_METHOD_SIMULATE = "solana-simulate";
 export const SOLANA_RPC_METHOD_OPEN_XNFT = "solana-open-xnft";
 

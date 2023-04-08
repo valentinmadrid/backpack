@@ -4,7 +4,13 @@ import type { WalletAccount } from '@wallet-standard/base';
 import { SOLANA_CHAINS } from './solana.js';
 
 const chains = SOLANA_CHAINS;
-const features = ['solana:signAndSendTransaction', 'solana:signMessage', 'solana:signTransaction'] as const;
+const features = [
+    'solana:signAndSendTransaction',
+    'solana:signMessage',
+    'solana:signTransaction',
+    'experimental:encrypt',
+    'experimental:decrypt',
+] as const;
 
 export class BackpackWalletAccount implements WalletAccount {
     readonly #address: WalletAccount['address'];
